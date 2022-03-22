@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from 'react';
-import useLocalState from '../hooks/useLocalState';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const UserContext = createContext();
 
 function UserProvider({ children }) {
-  const [authenticatedUser, setAuthenticatedUser] = useLocalState('authenticatedUser', null);
+  const [authenticatedUser, setAuthenticatedUser] = useLocalStorage('authenticatedUser', null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useLocalState = (key, initial = null) => {
+const useLocalStorage = (key, initial = null) => {
   const [value, setValue] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = window.localStorage.getItem(key);
@@ -18,4 +18,4 @@ const useLocalState = (key, initial = null) => {
   return [value, setValue];
 };
 
-export default useLocalState;
+export default useLocalStorage;
