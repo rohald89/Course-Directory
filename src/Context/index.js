@@ -30,7 +30,19 @@ function UserProvider({ children }) {
     setAuthenticatedUser(null);
   };
 
-  const value = { authenticatedUser, setAuthenticatedUser, loading, error, signIn, signOut };
+  const signUp = () => {
+    console.log('signup');
+  };
+
+  const value = {
+    authenticatedUser,
+    setAuthenticatedUser,
+    loading,
+    error,
+    signIn,
+    signOut,
+    signUp,
+  };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
