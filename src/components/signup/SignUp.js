@@ -12,7 +12,7 @@ const SignUp = () => {
     lastName: Yup.string().required('Last Name is Required'),
     emailAddress: Yup.string().required('Email is Required').email('Must be a valid email'),
     password: Yup.string()
-      .required('Pasword is Required')
+      .required('Password is Required')
       .min(8, 'Password must be at least 8 characters')
       .max(20, 'Password must be between 8 and 20 characters'),
     confirmPassword: Yup.string()
