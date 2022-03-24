@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useUser } from '../../Context';
 import Button from '../shared/Button';
@@ -6,6 +7,7 @@ import TextInput from '../shared/TextInput';
 
 const SignIn = () => {
   const { signIn } = useUser();
+  const navigate = useNavigate();
 
   const validate = Yup.object({
     emailAddress: Yup.string().required('Email is Required').email('Must be a valid email'),
@@ -19,7 +21,10 @@ const SignIn = () => {
         password: '',
       }}
       validationSchema={validate}
-      onSubmit={signIn}
+      onSubmit={values => {
+        signIn(values);
+        navigate('/');
+      }}
     >
       {formik => (
         <div className="bg-white dark:bg-gray-800 p-8 rounded-lg mt-16 w-11/12 max-w-lg mx-auto">
