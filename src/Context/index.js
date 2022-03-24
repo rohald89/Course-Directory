@@ -8,8 +8,9 @@ function UserProvider({ children }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const signIn = async (emailAddress, password) => {
+  const signIn = async ({ emailAddress, password }) => {
     setLoading(true);
+    console.log(emailAddress, password);
     const response = await fetch('http://localhost:5000/api/users', {
       method: 'GET',
       headers: {
@@ -25,7 +26,9 @@ function UserProvider({ children }) {
     setLoading(false);
   };
 
-  const signOut = () => {};
+  const signOut = () => {
+    setAuthenticatedUser(null);
+  };
 
   const value = { authenticatedUser, setAuthenticatedUser, loading, error, signIn, signOut };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
