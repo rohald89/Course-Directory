@@ -30,8 +30,22 @@ function UserProvider({ children }) {
     setAuthenticatedUser(null);
   };
 
-  const signUp = () => {
-    console.log('signup');
+  const signUp = async newUser => {
+    setLoading(true);
+    const response = await fetch('http://localhost:5000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: newUser,
+    });
+    console.log(response);
+    if (response.status === 201) {
+      const { emailAddress, password } = newUser;
+      await signIn({ emailAddress, password });
+    } else if (response.status === 400) {
+      return await response.json();
+    }
   };
 
   const value = {
