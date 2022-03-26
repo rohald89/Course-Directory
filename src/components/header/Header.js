@@ -4,13 +4,10 @@ import { useUser } from '../../Context';
 const Header = () => {
   const { authenticatedUser, error, loading } = useUser();
 
-  // const handleSubmit = e => {
-  //   signIn('joe@smith.com', 'joepassword');
-  // };
   if (error) return <h2>{error.message}</h2>;
   if (loading) return <h2>Loading...</h2>;
   return (
-    <div className="bg-purple-600 text-white py-4">
+    <div className="bg-purple-700 text-white py-4">
       <div className="container mx-auto flex items-center justify-between">
         <Link to={'/'}>
           <h1 className="text-3xl font-bold">Course Directory</h1>

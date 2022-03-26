@@ -19,9 +19,9 @@ function UserProvider({ children }) {
       },
     });
     if (response.status === 200) {
-      response.json().then(data => setAuthenticatedUser({ ...data, password }));
+      await response.json().then(data => setAuthenticatedUser({ ...data, password }));
     } else {
-      response.json().then(setError);
+      await response.json().then(setError);
     }
     setLoading(false);
   };

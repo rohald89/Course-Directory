@@ -32,7 +32,7 @@ const Courses = () => {
   return (
     <div className="container mx-auto pt-16 grid gap-4 place-content-stretch md:grid-cols-2 xl:grid-cols-4">
       {courses.map(course => (
-        <CourseCard course={course} />
+        <CourseCard course={course} key={course.id} />
       ))}
       <NewCourse />
     </div>

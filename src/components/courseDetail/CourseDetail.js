@@ -19,7 +19,7 @@ const CourseDetail = () => {
 
   return (
     <>
-      <ActionBar id={id} />
+      <ActionBar course={course} />
       <div className="container mx-auto mt-16">
         <h2 className="text-4xl mb-2">{course.title}</h2>
         <h3 className="text-purple-200 italic">

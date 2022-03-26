@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useUser } from '../../Context';
 import Button from '../shared/Button';
@@ -8,6 +8,9 @@ import TextInput from '../shared/TextInput';
 const SignIn = () => {
   const { signIn } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || '/';
 
   const validate = Yup.object({
     emailAddress: Yup.string().required('Email is Required').email('Must be a valid email'),
@@ -21,9 +24,9 @@ const SignIn = () => {
         password: '',
       }}
       validationSchema={validate}
-      onSubmit={values => {
-        signIn(values);
-        navigate('/');
+      onSubmit={async values => {
+        await signIn(values);
+        navigate(from);
       }}
     >
       {formik => (
@@ -33,7 +36,7 @@ const SignIn = () => {
           <Form>
             <TextInput label="Email Address" name="emailAddress" type="email" />
             <TextInput label="Password" name="password" type="password" />
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center gap-8 mt-8">
               <Button type="submit" color="primary">
                 Sign In
               </Button>
