@@ -1,14 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../Context';
 import Button from '../shared/Button';
 
 const ActionBar = ({ course }) => {
   const { authenticatedUser } = useUser();
+  const navigate = useNavigate();
   const { id, user: owner } = course;
-  const handleDelete = e => {
-    e.preventDefault();
-    console.log('TESTING');
+
+  const handleDelete = async () => {
+    await fetch(`http://localhost:5000/api/courses/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${btoa(
+          `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+        )}`,
+      },
+    });
+    navigate('/');
   };
+
   return (
     <div className="bg-gray-800">
       <div className="h-20 container mx-auto flex items-center gap-8">

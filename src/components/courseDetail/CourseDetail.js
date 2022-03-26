@@ -27,14 +27,16 @@ const CourseDetail = () => {
         </h3>
         <div className="mt-8 flex flex-col gap-8 lg:gap-32 lg:flex-row">
           <div className="leading-relaxed flex flex-col gap-4 lg:basis-3/4">
-            <ReactMarkdown>{course.description}</ReactMarkdown>
+            <ReactMarkdown className="prose text-white w-full max-w-none">
+              {course.description}
+            </ReactMarkdown>
           </div>
           <div className="">
             <h3 className="uppercase mb-4 border-b-2 border-purple-500 ">Estimated Time</h3>
             <p>{course.estimatedTime}</p>
 
             <h3 className="uppercase mb-4 mt-8 border-b-2 border-purple-500 ">Materials Needed</h3>
-            <ReactMarkdown>{course.materialsNeeded}</ReactMarkdown>
+            <ReactMarkdown className="prose text-white">{course.materialsNeeded}</ReactMarkdown>
           </div>
         </div>
       </div>

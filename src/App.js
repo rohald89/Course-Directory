@@ -9,6 +9,7 @@ import CourseDetail from './components/courseDetail/CourseDetail';
 import CreateCourse from './components/createCourse/CreateCourse';
 import PrivateRoute from './components/shared/PrivateRoute';
 import Layout from './components/Layout';
+import UpdateCourse from './components/updateCourse/UpdateCourse';
 
 const App = () => {
   return (
@@ -27,9 +28,14 @@ const App = () => {
                 }
               />
               <Route path="/courses/:id" element={<CourseDetail />} />
-              {/* <Route path="/courses/:id/update" element={<PrivateRoute />}>
-                <Route path="" element={<UpdateCourse />}></Route>
-              </Route> */}
+              <Route
+                path="/courses/:id/update"
+                element={
+                  <PrivateRoute>
+                    <UpdateCourse />
+                  </PrivateRoute>
+                }
+              />
               <Route path="signin" element={<SignIn />} />
               <Route path="signout" element={<SignOut />} />
               <Route path="signup" element={<SignUp />} />
