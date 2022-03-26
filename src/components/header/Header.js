@@ -12,7 +12,9 @@ const Header = () => {
   return (
     <div className="bg-purple-600 text-white py-4">
       <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Course Directory</h1>
+        <Link to={'/'}>
+          <h1 className="text-3xl font-bold">Course Directory</h1>
+        </Link>
         <div className="flex">
           {authenticatedUser ? (
             <>
