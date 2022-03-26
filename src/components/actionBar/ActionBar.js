@@ -38,7 +38,7 @@ const ActionBar = ({ course }) => {
         ) : null}
 
         <Button type="button" onClick={() => navigate('/')}>
-          Cancel
+          Return
         </Button>
       </div>
     </div>

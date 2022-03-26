@@ -31,12 +31,12 @@ const SignIn = () => {
     >
       {formik => (
         <div className="bg-white dark:bg-gray-800 p-8 rounded-lg mt-16 w-11/12 max-w-lg mx-auto">
-          <h2 className="text-white text-2xl text-center font-bold my-8">Sign In</h2>
+          <h2 className="text-white text-2xl font-bold my-8">Sign In</h2>
           {console.log(formik.values)}
           <Form>
             <TextInput label="Email Address" name="emailAddress" type="email" />
             <TextInput label="Password" name="password" type="password" />
-            <div className="flex justify-center gap-8 mt-8">
+            <div className="flex justify-start gap-4 mt-8">
               <Button type="submit" color="primary">
                 Sign In
               </Button>
