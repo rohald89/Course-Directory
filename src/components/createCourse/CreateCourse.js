@@ -62,7 +62,7 @@ const CreateCourse = () => {
               <Button type="submit" color="primary">
                 Create
               </Button>
-              <Button type="button" color="secondary">
+              <Button type="button" color="secondary" onClick={() => navigate('/')}>
                 Cancel
               </Button>
             </div>
@@ -70,28 +70,6 @@ const CreateCourse = () => {
         </div>
       )}
     </Formik>
-    // <div className="container mx-auto mt-16">
-    //   <h2 className="uppercase mb-4 pb-2 border-b-2 border-purple-500 ">Course Title</h2>
-    //   <input className="text-4xl mb-2" />
-    //   <h3 className="text-purple-200 italic">
-    //     By {authenticatedUser?.firstName} {authenticatedUser?.lastName}
-    //   </h3>
-    //   <div className="mt-8 flex flex-col gap-8 lg:gap-32 lg:flex-row">
-    //     <div className="leading-relaxed flex flex-col gap-4 lg:basis-3/4">
-    //       <h3 className="uppercase mb-4 pb-2 border-b-2 border-purple-500 ">Course Description</h3>
-    //       <textarea></textarea>
-    //     </div>
-    //     <div className="">
-    //       <h3 className="uppercase mb-4 pb-2 border-b-2 border-purple-500 ">Estimated Time</h3>
-    //       <p>9000 hours</p>
-
-    //       <h3 className="uppercase mb-4 pb-2 mt-8 border-b-2 border-purple-500 ">
-    //         Materials Needed
-    //       </h3>
-    //       <textarea />
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 export default CreateCourse;

@@ -20,24 +20,22 @@ const CourseDetail = () => {
   return (
     <>
       <ActionBar course={course} />
-      <div className="container mx-auto mt-16">
-        <h2 className="text-4xl mb-2">{course.title}</h2>
-        <h3 className="text-purple-200 italic">
-          By {course.user?.firstName} {course.user?.lastName}
-        </h3>
-        <div className="mt-8 flex flex-col gap-8 lg:gap-32 lg:flex-row">
-          <div className="leading-relaxed flex flex-col gap-4 lg:basis-3/4">
-            <ReactMarkdown className="prose text-white w-full max-w-none">
-              {course.description}
-            </ReactMarkdown>
-          </div>
-          <div className="">
-            <h3 className="uppercase mb-4 border-b-2 border-purple-500 ">Estimated Time</h3>
-            <p>{course.estimatedTime}</p>
+      <div className="container mx-auto mt-16 flex flex-col gap-8 lg:gap-32 lg:flex-row">
+        <div className="leading-relaxed flex flex-col gap-4 lg:basis-3/4">
+          <h2 className="text-4xl">{course.title}</h2>
+          <h3 className="text-purple-200 italic pb-1 mb-4 gradient-border">
+            By {course.user?.firstName} {course.user?.lastName}
+          </h3>
+          <ReactMarkdown className="prose prose-invert  w-full max-w-none">
+            {course.description}
+          </ReactMarkdown>
+        </div>
+        <div className="mt-14">
+          <h3 className="uppercase mb-4 pb-2 gradient-border">Estimated Time</h3>
+          <p>{course.estimatedTime}</p>
 
-            <h3 className="uppercase mb-4 mt-8 border-b-2 border-purple-500 ">Materials Needed</h3>
-            <ReactMarkdown className="prose text-white">{course.materialsNeeded}</ReactMarkdown>
-          </div>
+          <h3 className="uppercase mb-4 mt-8 pb-2 gradient-border">Materials Needed</h3>
+          <ReactMarkdown className="prose prose-invert">{course.materialsNeeded}</ReactMarkdown>
         </div>
       </div>
     </>

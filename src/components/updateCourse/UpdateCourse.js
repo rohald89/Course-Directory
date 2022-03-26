@@ -28,9 +28,9 @@ const UpdateCourse = () => {
     description: Yup.string().required('Description is Required'),
   });
 
-  const createCourse = async newCourse => {
-    await fetch('http://localhost:5000/api/courses', {
-      method: 'POST',
+  const updateCourse = async newCourse => {
+    await fetch(`http://localhost:5000/api/courses/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${btoa(
@@ -47,8 +47,9 @@ const UpdateCourse = () => {
       initialValues={course}
       enableReinitialize={true}
       validationSchema={validate}
-      onSubmit={newCourse => {
-        createCourse(newCourse);
+      onSubmit={async newCourse => {
+        await updateCourse(newCourse);
+        navigate(`/courses/${id}`);
       }}
     >
       {formik => (
@@ -68,9 +69,9 @@ const UpdateCourse = () => {
 
             <div className="flex gap-8 mt-8">
               <Button type="submit" color="primary">
-                Create
+                Update
               </Button>
-              <Button type="button" color="secondary">
+              <Button type="button" color="secondary" onClick={() => navigate(`/courses/${id}`)}>
                 Cancel
               </Button>
             </div>
