@@ -2,45 +2,26 @@ import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useUser } from '../../Context';
+// import { useUser } from '../../Context';
+import useCourse from '../../hooks/useCourse';
 import Button from '../shared/Button';
 import TextareaInput from '../shared/TextareaInput';
 import TextInput from '../shared/TextInput';
 
 const UpdateCourse = () => {
-  const { authenticatedUser } = useUser();
+  const { updateCourse } = useCourse();
   const { id } = useParams();
-  const [course, setCourse] = useState({});
+  const { course } = useCourse();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getCourse();
-  }, []);
-
-  const getCourse = async () => {
-    const res = await fetch(`http://localhost:5000/api/courses/${id}`);
-    const data = await res.json();
-    setCourse(data);
-  };
+  // useEffect(() => {
+  //   getCourse();
+  // }, []);
 
   const validate = Yup.object({
     title: Yup.string().required('Title is Required'),
     description: Yup.string().required('Description is Required'),
   });
-
-  const updateCourse = async newCourse => {
-    await fetch(`http://localhost:5000/api/courses/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(
-          `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-        )}`,
-      },
-      body: JSON.stringify({ ...newCourse, userId: authenticatedUser.id }),
-    });
-    navigate('/');
-  };
 
   return (
     <Formik
@@ -49,7 +30,6 @@ const UpdateCourse = () => {
       validationSchema={validate}
       onSubmit={async newCourse => {
         await updateCourse(newCourse);
-        navigate(`/courses/${id}`);
       }}
     >
       {formik => (

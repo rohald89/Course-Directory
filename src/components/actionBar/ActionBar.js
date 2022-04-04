@@ -1,24 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../Context';
+import useCourse from '../../hooks/useCourse';
 import Button from '../shared/Button';
 
 const ActionBar = ({ course }) => {
   const { authenticatedUser } = useUser();
   const navigate = useNavigate();
   const { id, user: owner } = course;
-
-  const handleDelete = async () => {
-    await fetch(`http://localhost:5000/api/courses/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(
-          `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-        )}`,
-      },
-    });
-    navigate('/');
-  };
+  const { deleteCourse } = useCourse();
 
   return (
     <div className="bg-gray-800">
@@ -31,7 +20,7 @@ const ActionBar = ({ course }) => {
             >
               Update
             </Link>
-            <Button onClick={handleDelete} type="button" color="primary">
+            <Button onClick={deleteCourse} type="button" color="primary">
               Delete
             </Button>
           </>

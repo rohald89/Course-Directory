@@ -1,33 +1,19 @@
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useUser } from '../../Context';
+import useCourse from '../../hooks/useCourse';
 import Button from '../shared/Button';
 import TextareaInput from '../shared/TextareaInput';
 import TextInput from '../shared/TextInput';
 
 const CreateCourse = () => {
-  const { authenticatedUser } = useUser();
+  const { createCourse } = useCourse();
   const navigate = useNavigate();
 
   const validate = Yup.object({
     title: Yup.string().required('Title is Required'),
     description: Yup.string().required('Description is Required'),
   });
-
-  const createCourse = async newCourse => {
-    await fetch('http://localhost:5000/api/courses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(
-          `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-        )}`,
-      },
-      body: JSON.stringify({ ...newCourse, userId: authenticatedUser.id }),
-    });
-    navigate('/');
-  };
 
   return (
     <Formik

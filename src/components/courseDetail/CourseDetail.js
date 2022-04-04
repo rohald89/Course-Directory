@@ -1,25 +1,16 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
+import useCourse from '../../hooks/useCourse';
 import ActionBar from '../actionBar/ActionBar';
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const [course, setCourse] = useState({});
-
-  useEffect(() => {
-    getCourse();
-  }, []);
-
-  const getCourse = () => {
-    fetch(`http://localhost:5000/api/courses/${id}`)
-      .then(res => res.json())
-      .then(data => setCourse(data));
-  };
+  const { course } = useCourse();
 
   return (
     <>
-      <ActionBar course={course} />
+      {/* <ActionBar course={course} /> */}
       <div className="container mx-auto mt-16 flex flex-col gap-8 lg:gap-32 lg:flex-row">
         <div className="leading-relaxed flex flex-col gap-4 lg:basis-3/4">
           <h2 className="text-4xl">{course.title}</h2>
