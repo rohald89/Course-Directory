@@ -1,8 +1,6 @@
 import { Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-// import { useUser } from '../../Context';
 import useCourse from '../../hooks/useCourse';
 import Button from '../shared/Button';
 import TextareaInput from '../shared/TextareaInput';
@@ -13,10 +11,6 @@ const UpdateCourse = () => {
   const { id } = useParams();
   const { course } = useCourse();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   getCourse();
-  // }, []);
 
   const validate = Yup.object({
     title: Yup.string().required('Title is Required'),

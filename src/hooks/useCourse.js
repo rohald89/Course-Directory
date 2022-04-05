@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../Context';
 
@@ -6,17 +6,25 @@ const useCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { authenticatedUser } = useUser();
-  const [course, setCourse] = useState;
+  const [course, setCourse] = useState({
+    title: '',
+    description: '',
+    estimatedTime: '',
+    materialsNeeded: '',
+    user: {
+      id: '',
+    },
+  });
 
-  useEffect(() => {
-    getCourse();
-  }, [id]);
-
-  const getCourse = async () => {
+  const getCourse = useCallback(async () => {
     const res = await fetch(`http://localhost:5000/api/courses/${id}`);
     const data = await res.json();
     setCourse(data);
-  };
+  }, [id]);
+
+  useEffect(() => {
+    getCourse();
+  }, [getCourse]);
 
   const createCourse = async newCourse => {
     await fetch('http://localhost:5000/api/courses', {
@@ -59,6 +67,8 @@ const useCourse = () => {
     navigate('/');
   };
 
-  return { course, createCourse, updateCourse, deleteCourse };
+  const isOwner = () => authenticatedUser?.id === course?.user.id;
+
+  return { course, createCourse, updateCourse, deleteCourse, isOwner };
 };
 export default useCourse;
