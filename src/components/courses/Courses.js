@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useCourse from '../../hooks/useCourse';
 import NewCourse from '../newCourse/NewCourse';
 
 const CourseCard = ({ course }) => {
@@ -17,17 +17,7 @@ const CourseCard = ({ course }) => {
 };
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  const getCourses = () => {
-    fetch('http://localhost:5000/api/courses')
-      .then(res => res.json())
-      .then(data => setCourses(data));
-  };
+  const { courses } = useCourse();
 
   return (
     <div className="container mx-auto pt-16 grid gap-4 place-content-stretch md:grid-cols-2 xl:grid-cols-4">

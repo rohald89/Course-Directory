@@ -6,6 +6,7 @@ const useCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { authenticatedUser } = useUser();
+  const [courses, setCourses] = useState([]);
   const [course, setCourse] = useState({
     title: '',
     description: '',
@@ -16,6 +17,12 @@ const useCourse = () => {
     },
   });
 
+  const getAllCourses = () => {
+    fetch('http://localhost:5000/api/courses')
+      .then(res => res.json())
+      .then(data => setCourses(data));
+  };
+
   const getCourse = useCallback(async () => {
     const res = await fetch(`http://localhost:5000/api/courses/${id}`);
     const data = await res.json();
@@ -24,6 +31,7 @@ const useCourse = () => {
 
   useEffect(() => {
     getCourse();
+    getAllCourses();
   }, [getCourse]);
 
   const createCourse = async newCourse => {
@@ -69,6 +77,6 @@ const useCourse = () => {
 
   const isOwner = () => authenticatedUser?.id === course?.user.id;
 
-  return { course, createCourse, updateCourse, deleteCourse, isOwner };
+  return { course, courses, createCourse, updateCourse, deleteCourse, isOwner };
 };
 export default useCourse;

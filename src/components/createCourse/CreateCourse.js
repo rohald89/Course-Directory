@@ -31,7 +31,6 @@ const CreateCourse = () => {
       {formik => (
         <div className="container bg-gray-800 p-8 rounded-lg mt-16 mx-auto">
           <h2 className="text-white text-2xl font-bold my-8">Create a New Course</h2>
-          {console.log(formik.values)}
           <Form className="">
             <div className="flex gap-16">
               <div className="basis-2/3">
