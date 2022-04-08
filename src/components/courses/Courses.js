@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAxios from '../../hooks/useAxios';
 import useCourse from '../../hooks/useCourse';
 import NewCourse from '../newCourse/NewCourse';
 
@@ -17,11 +19,19 @@ const CourseCard = ({ course }) => {
 };
 
 const Courses = () => {
-  const { courses } = useCourse();
+  // const { courses } = useCourse();
+  const [courses, setCourses] = useState([]);
+  const { data, errors, loading } = useAxios('courses');
 
+  useEffect(() => {
+    setCourses(data);
+  }, [data]);
+
+  errors.length && <h1>UH OH! An error occurred while fetching your data</h1>;
+  loading && <h1>Loading...</h1>;
   return (
     <div className="container mx-auto pt-16 grid gap-4 place-content-stretch md:grid-cols-2 xl:grid-cols-4">
-      {courses.map(course => (
+      {courses?.map(course => (
         <CourseCard course={course} key={course.id} />
       ))}
       <NewCourse />

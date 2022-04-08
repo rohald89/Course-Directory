@@ -1,32 +1,58 @@
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
+
 import { useUser } from '../Context';
 
 const baseUrl = 'http://localhost:5000/api/';
 
-const useAxios = () => {
+const useAxios = path => {
   const { authenticatedUser } = useUser();
-  const [response, setResponse] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const fetchData = async (method, path, data = null) => {
-    setLoading(true);
-    await axios({
-      method,
-      url: `${baseUrl}${path}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(
-          `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-        )}`,
-      },
-      data,
-    });
+  useEffect(() => {
+    let isMounted = true;
+    const source = axios.CancelToken.source();
 
-    return setLoading(false);
-  };
+    const fetchData = async (path, method = 'GET') => {
+      setLoading(true);
+      try {
+        const response = await axios({
+          method,
+          url: `${baseUrl}${path}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${btoa(
+              `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+            )}`,
+          },
+          data,
+          cancelToken: source.token,
+        });
+        if (isMounted) {
+          setData(response.data);
+          setErrors([]);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setErrors(err.message);
+          setData([]);
+        }
+      } finally {
+        isMounted && setLoading(true);
+      }
+    };
+    fetchData(path);
 
-  return { response, loading, errors };
+    const cleanUp = () => {
+      console.log('clean up function');
+      isMounted = false;
+      source.cancel();
+    };
+    return cleanUp;
+  }, [path]);
+
+  return { data, loading, errors };
 };
 export default useAxios;
